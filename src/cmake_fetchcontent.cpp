@@ -88,7 +88,7 @@ std::vector<Token> TokenizeCMake(std::string content) {
   return tokens;
 }
 
-size_t FindMatchingParen(std::vector<Token>& tokens, size_t open_index) {
+size_t FindMatchingParen(std::vector<Token> tokens, size_t open_index) {
   if (open_index >= tokens.size()) {
     return std::string::npos;
   }
@@ -123,7 +123,7 @@ void AddUnique(std::vector<std::string>* out, std::unordered_set<std::string>* s
 
 RepoReplaceResult ReplaceFetchContentRepos(
     std::string content,
-    std::unordered_map<std::string, std::string>& allowed_map) {
+    std::unordered_map<std::string, std::string> allowed_map) {
   std::vector<Token> tokens = TokenizeCMake(content);
   struct Replacement {
     size_t start;
@@ -172,7 +172,7 @@ RepoReplaceResult ReplaceFetchContentRepos(
           tokens[value_index].type != TokenType::kString) {
         continue;
       }
-      Token& value_token = tokens[value_index];
+      Token value_token = tokens[value_index];
       std::string original = value_token.text;
       auto allowed_it = allowed_map.find(original);
       if (allowed_it == allowed_map.end()) {

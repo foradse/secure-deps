@@ -8,7 +8,8 @@ std::string StripMakefileComments(std::string content) {
   std::string out;
   out.reserve(content.size());
   bool in_comment = false;
-  for (char ch : content) {
+  for (size_t i = 0; i < content.size(); ++i) {
+    char ch = content[i];
     if (in_comment) {
       if (ch == '\n') {
         in_comment = false;

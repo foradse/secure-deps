@@ -40,7 +40,8 @@ bool WriteTextFile(std::string path, std::string content, std::string* error) {
 std::vector<std::string> UniquePreserveOrder(std::vector<std::string> values) {
   std::unordered_set<std::string> seen;
   std::vector<std::string> unique;
-  for (auto& value : values) {
+  for (size_t i = 0; i < values.size(); ++i) {
+    std::string value = values[i];
     if (seen.insert(value).second) {
       unique.push_back(value);
     }
@@ -51,7 +52,8 @@ std::vector<std::string> UniquePreserveOrder(std::vector<std::string> values) {
 std::string JsonEscape(std::string value) {
   std::string out;
   out.reserve(value.size());
-  for (unsigned char ch : value) {
+  for (size_t i = 0; i < value.size(); ++i) {
+    unsigned char ch = value[i];
     switch (ch) {
       case '\"':
         out += "\\\"";
@@ -148,7 +150,8 @@ int RunMakefileCheck(int argc, char** argv) {
       return 2;
     }
     auto allowlist = ParseAllowlist(allowlist_content);
-    for (auto& lib : libraries) {
+    for (size_t i = 0; i < libraries.size(); ++i) {
+      std::string lib = libraries[i];
       if (allowlist.find(lib) == allowlist.end()) {
         disallowed.push_back(lib);
       }
@@ -163,14 +166,14 @@ int RunMakefileCheck(int argc, char** argv) {
               << "}\n";
   } else {
     std::cout << "Libraries found (" << libraries.size() << "):\n";
-    for (auto& lib : libraries) {
-      std::cout << "  " << lib << "\n";
+    for (size_t i = 0; i < libraries.size(); ++i) {
+      std::cout << "  " << libraries[i] << "\n";
     }
     if (!allowlist_path.empty()) {
       if (!disallowed.empty()) {
         std::cout << "Disallowed libraries (" << disallowed.size() << "):\n";
-        for (auto& lib : disallowed) {
-          std::cout << "  " << lib << "\n";
+        for (size_t i = 0; i < disallowed.size(); ++i) {
+          std::cout << "  " << disallowed[i] << "\n";
         }
       } else {
         std::cout << "All libraries are allowed.\n";
@@ -236,8 +239,8 @@ int RunCmakeRewrite(int argc, char** argv) {
                 << "}\n";
     } else {
       std::cerr << "Repositories not in allowlist (" << result.missing.size() << "):\n";
-      for (auto& repo : result.missing) {
-        std::cerr << "  " << repo << "\n";
+      for (size_t i = 0; i < result.missing.size(); ++i) {
+        std::cerr << "  " << result.missing[i] << "\n";
       }
     }
     return 1;
@@ -260,8 +263,8 @@ int RunCmakeRewrite(int argc, char** argv) {
   } else {
     if (!result.replaced.empty()) {
       std::cout << "Replaced repositories (" << result.replaced.size() << "):\n";
-      for (auto& entry : result.replaced) {
-        std::cout << "  " << entry << "\n";
+      for (size_t i = 0; i < result.replaced.size(); ++i) {
+        std::cout << "  " << result.replaced[i] << "\n";
       }
     } else {
       std::cout << "No repositories replaced.\n";

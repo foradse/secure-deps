@@ -12,4 +12,4 @@ struct RepoReplaceResult {
 
 RepoReplaceResult ReplaceFetchContentRepos(
     std::string content,
-    std::unordered_map<std::string, std::string>& allowed_map);
+    std::unordered_map<std::string, std::string> allowed_map);
