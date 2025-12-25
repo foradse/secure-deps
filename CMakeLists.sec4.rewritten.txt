@@ -1,0 +1,9 @@
+cmake_minimum_required(VERSION 3.16)
+project(sec4_example LANGUAGES CXX)
+
+include(FetchContent)
+FetchContent_Declare(
+  mylib
+  GIT_REPOSITORY https://mirror.local/repo.git
+  GIT_TAG v1.0.0
+)

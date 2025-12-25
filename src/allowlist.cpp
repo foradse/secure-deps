@@ -5,7 +5,7 @@
 
 namespace {
 
-std::string Trim(const std::string& value) {
+std::string Trim(std::string value) {
   size_t start = 0;
   while (start < value.size() && std::isspace(static_cast<unsigned char>(value[start]))) {
     ++start;
@@ -17,7 +17,7 @@ std::string Trim(const std::string& value) {
   return value.substr(start, end - start);
 }
 
-std::string StripQuotes(const std::string& value) {
+std::string StripQuotes(std::string value) {
   if (value.size() >= 2) {
     char first = value.front();
     char last = value.back();
@@ -28,7 +28,7 @@ std::string StripQuotes(const std::string& value) {
   return value;
 }
 
-std::string StripInlineComment(const std::string& line) {
+std::string StripInlineComment(std::string line) {
   bool in_single = false;
   bool in_double = false;
   for (size_t i = 0; i < line.size(); ++i) {
@@ -44,7 +44,7 @@ std::string StripInlineComment(const std::string& line) {
   return line;
 }
 
-std::string NormalizeLibName(const std::string& name) {
+std::string NormalizeLibName(std::string name) {
   std::string normalized = name;
   if (normalized.rfind("-l", 0) == 0) {
     normalized = normalized.substr(2);
@@ -57,7 +57,7 @@ std::string NormalizeLibName(const std::string& name) {
 
 }  // анонимное пространство имен
 
-std::unordered_set<std::string> ParseAllowlist(const std::string& content) {
+std::unordered_set<std::string> ParseAllowlist(std::string content) {
   std::unordered_set<std::string> allowlist;
   std::istringstream stream(content);
   std::string line;
@@ -72,7 +72,7 @@ std::unordered_set<std::string> ParseAllowlist(const std::string& content) {
   return allowlist;
 }
 
-std::unordered_map<std::string, std::string> ParseRepoMap(const std::string& content) {
+std::unordered_map<std::string, std::string> ParseRepoMap(std::string content) {
   std::unordered_map<std::string, std::string> repo_map;
   std::istringstream stream(content);
   std::string line;

@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cctype>
+#include <unordered_set>
 
 namespace {
 
@@ -19,7 +20,7 @@ struct Token {
   char quote = 0;
 };
 
-std::string ToLower(const std::string& value) {
+std::string ToLower(std::string value) {
   std::string out = value;
   std::transform(out.begin(), out.end(), out.begin(), [](unsigned char ch) {
     return static_cast<char>(std::tolower(ch));
@@ -27,7 +28,7 @@ std::string ToLower(const std::string& value) {
   return out;
 }
 
-std::vector<Token> TokenizeCMake(const std::string& content) {
+std::vector<Token> TokenizeCMake(std::string content) {
   std::vector<Token> tokens;
   size_t i = 0;
   while (i < content.size()) {
@@ -87,7 +88,7 @@ std::vector<Token> TokenizeCMake(const std::string& content) {
   return tokens;
 }
 
-size_t FindMatchingParen(const std::vector<Token>& tokens, size_t open_index) {
+size_t FindMatchingParen(std::vector<Token>& tokens, size_t open_index) {
   if (open_index >= tokens.size()) {
     return std::string::npos;
   }
@@ -112,7 +113,7 @@ size_t FindMatchingParen(const std::vector<Token>& tokens, size_t open_index) {
 }
 
 void AddUnique(std::vector<std::string>* out, std::unordered_set<std::string>* seen,
-               const std::string& value) {
+               std::string value) {
   if (seen->insert(value).second) {
     out->push_back(value);
   }
@@ -121,8 +122,8 @@ void AddUnique(std::vector<std::string>* out, std::unordered_set<std::string>* s
 }  // анонимное пространство имен
 
 RepoReplaceResult ReplaceFetchContentRepos(
-    const std::string& content,
-    const std::unordered_map<std::string, std::string>& allowed_map) {
+    std::string content,
+    std::unordered_map<std::string, std::string>& allowed_map) {
   std::vector<Token> tokens = TokenizeCMake(content);
   struct Replacement {
     size_t start;
@@ -171,7 +172,7 @@ RepoReplaceResult ReplaceFetchContentRepos(
           tokens[value_index].type != TokenType::kString) {
         continue;
       }
-      const Token& value_token = tokens[value_index];
+      Token& value_token = tokens[value_index];
       std::string original = value_token.text;
       auto allowed_it = allowed_map.find(original);
       if (allowed_it == allowed_map.end()) {

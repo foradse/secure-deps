@@ -1,0 +1,4 @@
+ssl
+crypto
+z
+libbar.a

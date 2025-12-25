@@ -4,7 +4,7 @@
 
 namespace {
 
-std::string StripMakefileComments(const std::string& content) {
+std::string StripMakefileComments(std::string content) {
   std::string out;
   out.reserve(content.size());
   bool in_comment = false;
@@ -28,7 +28,7 @@ std::string StripMakefileComments(const std::string& content) {
   return out;
 }
 
-std::string NormalizeLibraryToken(const std::string& token) {
+std::string NormalizeLibraryToken(std::string token) {
   if (!token.empty() && token.front() == ':') {
     return token.substr(1);
   }
@@ -37,7 +37,7 @@ std::string NormalizeLibraryToken(const std::string& token) {
 
 }  // анонимное пространство имен
 
-std::vector<std::string> ExtractLibrariesFromMakefile(const std::string& content) {
+std::vector<std::string> ExtractLibrariesFromMakefile(std::string content) {
   std::string sanitized = StripMakefileComments(content);
   std::regex pattern(R"(-l(:?[A-Za-z0-9_./+\-]+))");
   std::vector<std::string> libraries;

@@ -11,7 +11,7 @@
 
 namespace {
 
-bool ReadTextFile(const std::string& path, std::string* out, std::string* error) {
+bool ReadTextFile(std::string path, std::string* out, std::string* error) {
   std::ifstream file(path, std::ios::in | std::ios::binary);
   if (!file) {
     if (error) {
@@ -25,7 +25,7 @@ bool ReadTextFile(const std::string& path, std::string* out, std::string* error)
   return true;
 }
 
-bool WriteTextFile(const std::string& path, const std::string& content, std::string* error) {
+bool WriteTextFile(std::string path, std::string content, std::string* error) {
   std::ofstream file(path, std::ios::out | std::ios::binary | std::ios::trunc);
   if (!file) {
     if (error) {
@@ -37,10 +37,10 @@ bool WriteTextFile(const std::string& path, const std::string& content, std::str
   return true;
 }
 
-std::vector<std::string> UniquePreserveOrder(const std::vector<std::string>& values) {
+std::vector<std::string> UniquePreserveOrder(std::vector<std::string> values) {
   std::unordered_set<std::string> seen;
   std::vector<std::string> unique;
-  for (const auto& value : values) {
+  for (auto& value : values) {
     if (seen.insert(value).second) {
       unique.push_back(value);
     }
@@ -48,7 +48,7 @@ std::vector<std::string> UniquePreserveOrder(const std::vector<std::string>& val
   return unique;
 }
 
-std::string JsonEscape(const std::string& value) {
+std::string JsonEscape(std::string value) {
   std::string out;
   out.reserve(value.size());
   for (unsigned char ch : value) {
@@ -76,7 +76,7 @@ std::string JsonEscape(const std::string& value) {
         break;
       default:
         if (ch < 0x20) {
-          const char hex[] = "0123456789abcdef";
+          char hex[] = "0123456789abcdef";
           out += "\\u00";
           out.push_back(hex[(ch >> 4) & 0x0f]);
           out.push_back(hex[ch & 0x0f]);
@@ -89,7 +89,7 @@ std::string JsonEscape(const std::string& value) {
   return out;
 }
 
-std::string JsonArray(const std::vector<std::string>& values) {
+std::string JsonArray(std::vector<std::string> values) {
   std::ostringstream out;
   out << "[";
   for (size_t i = 0; i < values.size(); ++i) {
@@ -148,7 +148,7 @@ int RunMakefileCheck(int argc, char** argv) {
       return 2;
     }
     auto allowlist = ParseAllowlist(allowlist_content);
-    for (const auto& lib : libraries) {
+    for (auto& lib : libraries) {
       if (allowlist.find(lib) == allowlist.end()) {
         disallowed.push_back(lib);
       }
@@ -163,13 +163,13 @@ int RunMakefileCheck(int argc, char** argv) {
               << "}\n";
   } else {
     std::cout << "Libraries found (" << libraries.size() << "):\n";
-    for (const auto& lib : libraries) {
+    for (auto& lib : libraries) {
       std::cout << "  " << lib << "\n";
     }
     if (!allowlist_path.empty()) {
       if (!disallowed.empty()) {
         std::cout << "Disallowed libraries (" << disallowed.size() << "):\n";
-        for (const auto& lib : disallowed) {
+        for (auto& lib : disallowed) {
           std::cout << "  " << lib << "\n";
         }
       } else {
@@ -236,7 +236,7 @@ int RunCmakeRewrite(int argc, char** argv) {
                 << "}\n";
     } else {
       std::cerr << "Repositories not in allowlist (" << result.missing.size() << "):\n";
-      for (const auto& repo : result.missing) {
+      for (auto& repo : result.missing) {
         std::cerr << "  " << repo << "\n";
       }
     }
@@ -260,7 +260,7 @@ int RunCmakeRewrite(int argc, char** argv) {
   } else {
     if (!result.replaced.empty()) {
       std::cout << "Replaced repositories (" << result.replaced.size() << "):\n";
-      for (const auto& entry : result.replaced) {
+      for (auto& entry : result.replaced) {
         std::cout << "  " << entry << "\n";
       }
     } else {

@@ -1,0 +1,2 @@
+https://github.com/orig/repo.git => https://mirror.local/repo.git
+https://example.com/lib.git => https://mirror.local/lib.git

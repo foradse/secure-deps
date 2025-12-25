@@ -3,4 +3,4 @@
 #include <string>
 #include <vector>
 
-std::vector<std::string> ExtractLibrariesFromMakefile(const std::string& content);
+std::vector<std::string> ExtractLibrariesFromMakefile(std::string content);
