@@ -119,7 +119,7 @@ void AddUnique(std::vector<std::string>* out, std::unordered_set<std::string>* s
   }
 }
 
-}  // анонимное пространство имен
+}
 
 RepoReplaceResult ReplaceFetchContentRepos(
     std::string content,

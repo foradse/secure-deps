@@ -55,7 +55,7 @@ std::string NormalizeLibName(std::string name) {
   return normalized;
 }
 
-}  // анонимное пространство имен
+}
 
 std::unordered_set<std::string> ParseAllowlist(std::string content) {
   std::unordered_set<std::string> allowlist;

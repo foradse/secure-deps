@@ -273,7 +273,7 @@ int RunCmakeRewrite(int argc, char** argv) {
   return 0;
 }
 
-}  // анонимное пространство имен
+}
 
 int main(int argc, char** argv) {
   if (argc < 2) {

@@ -36,7 +36,7 @@ std::string NormalizeLibraryToken(std::string token) {
   return token;
 }
 
-}  // анонимное пространство имен
+}
 
 std::vector<std::string> ExtractLibrariesFromMakefile(std::string content) {
   std::string sanitized = StripMakefileComments(content);
